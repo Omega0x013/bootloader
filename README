@@ -3,7 +3,11 @@ This is the base bootloader for my "lithium" project, it operates very simply,
 and for most use, you needn't alter 'boot.asm', and will only need to write your
 program into 'program.asm'
 
-= Installing
+= Running
+Check the installing dependencies section first, but if you already have nasm
+and qemu open to the command line, then 'make' will build and start lithium.
+
+= Installing dependencies
 Unless your operating system is too different from Ubuntu, then my makefile
 should include everything you need to run my little bootloader. To get all the
 dependencies use 'make dep', and if your package manager isn't 'apt', then set
