@@ -1,0 +1,14 @@
+=== Lithium Bootloader ===
+This is the base bootloader for my "lithium" project, it operates very simply,
+and for most use, you needn't alter 'boot.asm', and will only need to write your
+program into 'program.asm'
+
+= Installing
+Unless your operating system is too different from Ubuntu, then my makefile
+should include everything you need to run my little bootloader. To get all the
+dependencies use 'make dep', and if your package manager isn't 'apt', then set
+the 'PKG' and if necessary 'SUDO' variables to your requirement
+
+= Programs
+Programs are protected-mode assembly processes. If you want to build anything
+in a higher level language, you'll need a cross-compiler.

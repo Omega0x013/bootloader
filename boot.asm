@@ -1,7 +1,15 @@
 bits 16
 org 0x7c00
 
-; BOOTLOADER SECTION
+; Lithium Bootloader
+; Feel free to use this code however you wish
+; I make no guarantees that it will work,
+; but in the use case it is designed for (QEMU x86_64)
+; it works.
+;
+; put your code in "program.asm", the entry point is
+; 	`start`
+; or you can alter line 42 to point elsewhere
 
 boot:
 	mov ax, 0x2401
@@ -31,7 +39,7 @@ boot:
 	mov fs, ax
 	mov gs, ax
 	mov ss, ax
-	jmp CODE_SEG:startf
+	jmp CODE_SEG:start
 gdt_start:
 	dq 0x0
 gdt_code:
@@ -60,22 +68,8 @@ DATA_SEG equ gdt_data - gdt_start
 times 510 - ($-$$) db 0
 dw 0xaa55
 copy_target:
-bits 32
-hello: db "CiskOS", 00h
+%include "program.asm"
 
-; PROGRAM SECTION
-startf:
-	mov esi,hello
-	mov ebx, 0xb8000
-l1:	lodsb
-	or eax,0x0F00
-	mov word [ebx], ax
-	add ebx,2
-	or al,al
-	jnz l1
-
-	;exit
-xt:	cli
-	hlt
-
-; the rest of the disk is dynamically sized based on program size, used to be 1024, but that wasn't necessarily
+; the disk is dynamically sized according to contents
+; it used to be padded but that makes no sense to do
+; you'd be making it larger or smaller than necessary
